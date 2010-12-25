@@ -1,0 +1,8 @@
+Interactive Graphics Framework (IGF) is a minimal immediate mode graphics API that supports both Java 2D and OpenGL, inspired by Processing (processing.org).
+
+This code is released under the GNU Lesser General Public License:
+http://www.gnu.org/licenses/lgpl.html
+
+Enjoy!
+
+-- Curran Kelleher 12/25/2010
