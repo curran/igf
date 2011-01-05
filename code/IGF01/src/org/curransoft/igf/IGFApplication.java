@@ -8,7 +8,7 @@ package org.curransoft.igf;
  */
 public interface IGFApplication {
 	/**
-	 * Called when the application is created.
+	 * Called once when the application is created.
 	 */
 	public void setup(IGF g);
 

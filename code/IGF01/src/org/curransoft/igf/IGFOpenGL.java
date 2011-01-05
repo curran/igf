@@ -1,5 +1,7 @@
 package org.curransoft.igf;
+
 import java.awt.Frame;
+import java.awt.Image;
 import java.awt.event.KeyListener;
 import java.awt.event.MouseAdapter;
 import java.awt.event.WindowAdapter;
@@ -104,6 +106,7 @@ public class IGFOpenGL implements IGF {
 	}
 
 	public Frame showFrame(String title, int x, int y, int width, int height) {
+		frame.setTitle(title);
 		frame.setBounds(x, y, width, height);
 		frame.setVisible(true);
 		drawingArea.requestFocus();
@@ -118,7 +121,7 @@ public class IGFOpenGL implements IGF {
 		return height;
 	}
 
-	public void line(double x1, double y1, double x2, double y2, double width) {
+	public void line(double x1, double y1, double x2, double y2) {
 		gl.glColor3d(0, 0, 0);
 		gl.glBegin(GL.GL_LINE);
 		gl.glVertex2d(x1, y1);
@@ -126,16 +129,74 @@ public class IGFOpenGL implements IGF {
 		gl.glEnd();
 	}
 
-	@Override
 	public void background(int gray) {
-		// TODO Auto-generated method stub
+	}
 
+	public void fill(int gray) {
+	}
+
+	public void circle(double x, double y, double radius) {
+
+		// TODO optimize this - make a circle display list and reuse that for
+		// every circle
+
+		gl.glColor3d(0, 0, 0);
+		gl.glBegin(GL.GL_TRIANGLE_FAN);
+		gl.glVertex2d(x, y);
+		for (double angle = 0; angle < 360; angle += 5) {
+			double x1 = x + Math.sin(angle) * radius;
+			double y1 = y + Math.cos(angle) * radius;
+			gl.glVertex2d(x1, y1);
+		}
+		gl.glEnd();
 	}
 
 	@Override
-	public void fill(int gray) {
+	public void fill(int red, int green, int blue) {
 		// TODO Auto-generated method stub
-
+		
 	}
 
+	@Override
+	public void stroke(int gray) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void stroke(int red, int green, int blue) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void strokeWeight(double weight) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public int loadImage(Image image) {
+		// TODO Auto-generated method stub
+		return 0;
+	}
+
+	@Override
+	public void image(int imageID, double x, double y, double width,
+			double height) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public double getImageWidth(int imageID) {
+		// TODO Auto-generated method stub
+		return 0;
+	}
+
+	@Override
+	public double getImageHeight(int imageID) {
+		// TODO Auto-generated method stub
+		return 0;
+	}
 }
