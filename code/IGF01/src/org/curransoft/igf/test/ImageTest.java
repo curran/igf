@@ -47,6 +47,9 @@ public class ImageTest extends IGFApplicationAdapter {
 		// 2-1-1
 		// 2-1-2
 		// 3-0-0
+//http://a.tile.openstreetmap.org/0/0/0.png
+//http://b.tile.openstreetmap.org/0/0/0.png
+//http://c.tile.openstreetmap.org/0/0/0.png
 
 	}
 
