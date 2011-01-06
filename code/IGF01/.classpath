@@ -2,14 +2,11 @@
 <classpath>
 	<classpathentry kind="src" path="src"/>
 	<classpathentry kind="con" path="org.eclipse.jdt.launching.JRE_CONTAINER/org.eclipse.jdt.internal.debug.ui.launcher.StandardVMType/JavaSE-1.6"/>
-	<classpathentry kind="lib" path="lib/opengl/gluegen-rt.jar"/>
-	<classpathentry kind="lib" path="lib/opengl/jogl.jar">
+	<classpathentry kind="lib" path="/home/curran/private/github/igf/lib/opengl/gluegen-rt.jar"/>
+	<classpathentry kind="lib" path="/home/curran/private/github/igf/lib/opengl/jogl.jar">
 		<attributes>
-			<attribute name="org.eclipse.jdt.launching.CLASSPATH_ATTR_LIBRARY_PATH_ENTRY" value="IGF01/lib/opengl"/>
+			<attribute name="org.eclipse.jdt.launching.CLASSPATH_ATTR_LIBRARY_PATH_ENTRY" value="/home/curran/private/github/igf/lib/opengl"/>
 		</attributes>
 	</classpathentry>
-	<classpathentry kind="lib" path="lib/opengl/libgluegen-rt.so"/>
-	<classpathentry kind="lib" path="lib/opengl/libjogl_awt.so"/>
-	<classpathentry kind="lib" path="lib/opengl/libjogl.so"/>
 	<classpathentry kind="output" path="bin"/>
 </classpath>

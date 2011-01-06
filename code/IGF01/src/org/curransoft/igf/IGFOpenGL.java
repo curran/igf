@@ -33,6 +33,16 @@ public class IGFOpenGL implements IGF {
 	int width, height;
 
 	/**
+	 * The weight of the stroke.
+	 */
+	double weight;
+
+	/**
+	 * The color of the stroke. These values should be between 0 and 1.
+	 */
+	double strokeR, strokeG, strokeB;
+
+	/**
 	 * The graphics context used in display(). When the call to
 	 * application.draw() begins, this variable is set to something, then when
 	 * application.draw() ends, this variable is set to null.
@@ -122,11 +132,47 @@ public class IGFOpenGL implements IGF {
 	}
 
 	public void line(double x1, double y1, double x2, double y2) {
-		gl.glColor3d(0, 0, 0);
-		gl.glBegin(GL.GL_LINE);
-		gl.glVertex2d(x1, y1);
-		gl.glVertex2d(x2, y2);
-		gl.glEnd();
+		gl.glColor3d(strokeR, strokeG, strokeB);
+		if (y1 == y2) {
+			gl.glBegin(GL.GL_QUADS);
+			y1 -= weight / 2;
+			y2 = y1 + weight;
+			gl.glVertex2d(x1, y1);
+			gl.glVertex2d(x1, y2);
+			gl.glVertex2d(x2, y2);
+			gl.glVertex2d(x2, y1);
+			gl.glEnd();
+		} else if (x1 == x2) {
+			gl.glBegin(GL.GL_QUADS);
+			x1 -= weight / 2;
+			x2 = x1 + weight;
+			gl.glVertex2d(x1, y1);
+			gl.glVertex2d(x1, y2);
+			gl.glVertex2d(x2, y2);
+			gl.glVertex2d(x2, y1);
+			gl.glEnd();
+		} else {
+			double a = x2 - x1;
+			double b = y2 - y1;
+			double c = Math.sqrt(a * a + b * b);
+			double ratio = weight / 2 / c;
+			double d = a * ratio;
+			double e = b * ratio;
+			double xa = x1 + e;
+			double ya = y1 - d;
+			double xb = x1 - e;
+			double yb = y1 + d;
+			double xc = x2 - e;
+			double yc = y2 + d;
+			double xd = x2 + e;
+			double yd = y2 - d;
+			gl.glBegin(GL.GL_QUADS);
+			gl.glVertex2d(xa, ya);
+			gl.glVertex2d(xb, yb);
+			gl.glVertex2d(xc, yc);
+			gl.glVertex2d(xd, yd);
+			gl.glEnd();
+		}
 	}
 
 	public void background(int gray) {
@@ -154,25 +200,24 @@ public class IGFOpenGL implements IGF {
 	@Override
 	public void fill(int red, int green, int blue) {
 		// TODO Auto-generated method stub
-		
+
 	}
 
 	@Override
 	public void stroke(int gray) {
-		// TODO Auto-generated method stub
-		
+		stroke(gray, gray, gray);
 	}
 
 	@Override
 	public void stroke(int red, int green, int blue) {
-		// TODO Auto-generated method stub
-		
+		strokeR = red / 255.0;
+		strokeG = green / 255.0;
+		strokeB = blue / 255.0;
 	}
 
 	@Override
 	public void strokeWeight(double weight) {
-		// TODO Auto-generated method stub
-		
+		this.weight = weight;
 	}
 
 	@Override
@@ -185,7 +230,7 @@ public class IGFOpenGL implements IGF {
 	public void image(int imageID, double x, double y, double width,
 			double height) {
 		// TODO Auto-generated method stub
-		
+
 	}
 
 	@Override

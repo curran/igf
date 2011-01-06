@@ -152,20 +152,19 @@ public class IGFJava2D implements IGF {
 
 	@Override
 	public void stroke(int gray) {
-		// TODO Auto-generated method stub
-
+		stroke(gray, gray, gray);
 	}
 
 	@Override
 	public void stroke(int red, int green, int blue) {
-		// TODO Auto-generated method stub
-
+		((Graphics2D) g).setPaint(new Color(red,green,blue));
 	}
 
 	@Override
 	public void strokeWeight(double weight) {
 		// TODO fix this wasteful creation of objects
-		((Graphics2D) g).setStroke(new BasicStroke((float) weight));
+		((Graphics2D) g).setStroke(new BasicStroke((float) weight,
+				BasicStroke.CAP_BUTT, BasicStroke.JOIN_ROUND));
 	}
 
 	@Override
