@@ -20,7 +20,7 @@ public class Test03LinesFractal extends IGFApplicationAdapter {
 	
 
 	public static void main(String[] args) {
-		TestUtils.testApplication(new Test03LinesFractal(),512,512);
+		TestUtils.testApplication(new Test03LinesFractal(),new Test03LinesFractal(),512,512);
 	}
 
 	public void draw(IGF g) {

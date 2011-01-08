@@ -12,7 +12,7 @@ import org.curransoft.igf.IGFApplicationAdapter;
  */
 public class Test02Line extends IGFApplicationAdapter {
 	public static void main(String[] args) {
-		TestUtils.testApplication(new Test02Line());
+		TestUtils.testApplication(new Test02Line(),new Test02Line());
 	}
 
 	public void draw(IGF g) {

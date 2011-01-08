@@ -20,7 +20,7 @@ public class Test04DrawImage extends IGFApplicationAdapter {
 	private static final int NO_IMAGE_LOADED = -1;
 	private int imageID = NO_IMAGE_LOADED;
 	public static void main(String[] args) {
-		TestUtils.testApplication(new Test04DrawImage());
+		TestUtils.testApplication(new Test04DrawImage(),new Test04DrawImage());
 	}
 
 	public void setup(IGF g) {

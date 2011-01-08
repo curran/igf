@@ -18,7 +18,7 @@ public class Test05_1DZoom extends IGFApplicationAdapter {
 	double dx = 0, dz = 0, acceleration = 0.005, dampening = 0.9;
 
 	public static void main(String[] args) {
-		TestUtils.testApplication(new Test05_1DZoom());
+		TestUtils.testApplication(new Test05_1DZoom(),new Test05_1DZoom());
 	}
 
 	@Override

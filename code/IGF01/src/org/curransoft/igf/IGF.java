@@ -1,5 +1,6 @@
 package org.curransoft.igf;
 
+import java.awt.Font;
 import java.awt.Frame;
 import java.awt.Image;
 
@@ -16,7 +17,12 @@ public interface IGF {
 	 * will have this id.
 	 */
 	public static final int MOUSE_POINT_ID = -1;
-	
+	/**
+	 * A number which, when used as a font ID, will cause an error to occur.
+	 * Applications should initialize their font ID variables to this value as a
+	 * precaution prior to changing them to values returned by loadFont().
+	 */
+	public static final int INVALID_FONT_ID = -1;
 
 	/**
 	 * Shows a frame with the given bounds containing the given application.
@@ -47,9 +53,22 @@ public interface IGF {
 	void background(int gray);
 
 	/**
+	 * Turns the fill color off. The fill color is turned on when fill() is
+	 * called. It only makes sense to draw shapes with a stroke only after
+	 * calling noFill().
+	 */
+	void noFill();
+
+	/**
 	 * Sets the current fill color to the given shade of gray (0 to 255).
 	 */
 	void fill(int gray);
+
+	/**
+	 * Sets the current fill color to the given shade of gray with the given
+	 * alpha value (both from 0 to 255).
+	 */
+	void fill(int gray, int alpha);
 
 	/**
 	 * Sets the current fill color to the given red, green and blue values (each
@@ -58,15 +77,33 @@ public interface IGF {
 	void fill(int red, int green, int blue);
 
 	/**
+	 * Sets the current fill color to the given red, green, blue and alpha
+	 * values (each from 0 to 255).
+	 */
+	void fill(int red, int green, int blue, int alpha);
+
+	/**
 	 * Sets the stroke color to the given shade of gray (0 to 255).
 	 */
 	void stroke(int gray);
+
+	/**
+	 * Sets the stroke color to the given shade of gray with the given alpha
+	 * value (both from 0 to 255).
+	 */
+	void stroke(int gray, int alpha);
 
 	/**
 	 * Sets the current stroke color to the given red, green and blue values
 	 * (each from 0 to 255).
 	 */
 	void stroke(int red, int green, int blue);
+
+	/**
+	 * Sets the current stroke color to the given red, green and blue and alpha
+	 * values (each from 0 to 255).
+	 */
+	void stroke(int red, int green, int blue, int alpha);
 
 	/**
 	 * Draws a circle with the given (x, y) center point and the given radius.
@@ -101,20 +138,75 @@ public interface IGF {
 	 * call to loadImage()).
 	 */
 	double getImageHeight(int imageID);
+
+	/**
+	 * Returns a font id which can be used later as the fontID argument to
+	 * text() and other methods.
+	 */
+	int loadFont(Font font);
+
+	/**
+	 * Draws the given text string using the given font at the given (x,y)
+	 * center coordinates with the given scale and rotation
+	 * 
+	 * @param textString
+	 *            the string to draw
+	 * @param fontID
+	 *            the id of the font to use, as returned from loadFont(). If
+	 *            IGF.INVALID_FONT_ID is used, an exception is thrown.
+	 * @param x
+	 *            the X center coordinate for the text
+	 * @param y
+	 *            the Y center coordinate for the text
+	 * @param scale
+	 *            the scale of the text (1 = no scaling, 0.5 = half the size, 2
+	 *            = double the size etc.)
+	 * @param rotation
+	 *            the counter-clockwise rotation angle of the text in radians (0
+	 *            = no rotation)
+	 */
+	void text(String textString, int fontID, double x, double y, double scale,
+			double rotation);
+
+	/**
+	 * Draws the given text string using the given font at the given (x,y)
+	 * center coordinates with a scale of 1 and rotation of 0.
+	 * 
+	 * @param textString
+	 *            the string to draw
+	 * @param fontID
+	 *            the id of the font to use, as returned from loadFont(). If
+	 *            IGF.INVALID_FONT_ID is used, an exception is thrown.
+	 * @param x
+	 *            the X center coordinate for the text
+	 * @param y
+	 *            the Y center coordinate for the text
+	 */
+	void text(String textString, int fontID, double x, double y);
+
+	/**
+	 * Gets the width of the bounding box that the given text string would have
+	 * if it were drawn (i.e. if text() were called with a scale of 1 and a
+	 * rotation of 0).
+	 * 
+	 * @param textString
+	 *            the text string to use
+	 * @param fontID
+	 *            the id of the font to use, as returned from loadFont(). If
+	 *            IGF.INVALID_FONT_ID is used, an exception is thrown.
+	 */
+	double getTextWidth(String textString, int fontID);
+
+	/**
+	 * Gets the height of the bounding box that the given text string would have
+	 * if it were drawn (i.e. if text() were called with a scale of 1 and a
+	 * rotation of 0).
+	 * 
+	 * @param textString
+	 *            the text string to use
+	 * @param fontID
+	 *            the id of the font to use, as returned from loadFont(). If
+	 *            IGF.INVALID_FONT_ID is used, an exception is thrown.
+	 */
+	double getTextHeight(String textString, int fontID);
 }
-// TODO add text rendering support:
-/*
- * //returns a font id int loadFont(Font font); void text(int fontID, String
- * text, double x, double y)
- * 
- * renderer = new TextRenderer(new Font("SansSerif", Font.BOLD, 36));
- * 
- * In the display method of your GLEventListener, add:
- * 
- * renderer.beginRendering(drawable.getWidth(), drawable.getHeight()); //
- * optionally set the color renderer.setColor(1.0f, 0.2f, 0.2f, 0.8f);
- * renderer.draw("Text to draw", xPosition, yPosition); // ... more draw
- * commands, color changes, etc. renderer.endRendering(); } from
- * http://www.cse.unsw
- * .edu.au/~cs3421/jogl/javadoc_public/com/sun/opengl/util/j2d/TextRenderer.html
- */

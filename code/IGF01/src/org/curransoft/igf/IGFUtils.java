@@ -16,6 +16,7 @@ import java.awt.event.WindowEvent;
  * 
  */
 public class IGFUtils {
+
 	/**
 	 * @return a mouse listener which forwards mouse events to the application.
 	 * @param igf

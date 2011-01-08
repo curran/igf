@@ -11,7 +11,7 @@ import org.curransoft.igf.IGFApplicationAdapter;
  */
 public class Test01Circle extends IGFApplicationAdapter {
 	public static void main(String[] args) {
-		TestUtils.testApplication(new Test01Circle());
+		TestUtils.testApplication(new Test01Circle(),new Test01Circle());
 	}
 
 	public void setup(IGF g) {
@@ -22,7 +22,11 @@ public class Test01Circle extends IGFApplicationAdapter {
 		double x = g.getWidth() / 2;
 		double y = g.getHeight() / 2;
 		int radius = 20;
-		g.fill(0);
+		g.stroke(0);
 		g.circle(x, y, radius);
+//		g.fill(0, 100);
+//		radius = 40;
+//		g.circle(x, y, radius);
+//		
 	}
 }

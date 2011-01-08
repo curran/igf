@@ -13,7 +13,7 @@ import org.curransoft.igf.IGFKey;
 public class Test00Resize implements IGFApplication {
 
 	public static void main(String[] args) {
-		TestUtils.testApplication(new Test00Resize());
+		TestUtils.testApplication(new Test00Resize(),new Test00Resize());
 	}
 
 	public void setup(IGF g) {

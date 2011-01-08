@@ -3,6 +3,7 @@ package org.curransoft.igf;
 import java.awt.BasicStroke;
 import java.awt.Color;
 import java.awt.Component;
+import java.awt.Font;
 import java.awt.Frame;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
@@ -10,6 +11,8 @@ import java.awt.Image;
 import java.awt.event.KeyListener;
 import java.awt.event.MouseAdapter;
 import java.awt.event.WindowAdapter;
+import java.awt.font.FontRenderContext;
+import java.awt.font.TextLayout;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Timer;
@@ -26,6 +29,12 @@ public class IGFJava2D implements IGF {
 	 * The contained application
 	 */
 	final IGFApplication application;
+
+	/**
+	 * A flag indicating whether or not showFrame() has been called. Used for
+	 * testing if that method was called twice.
+	 */
+	private boolean showFrameWasCalled = false;
 
 	/**
 	 * The currently active graphics. Set to something when paint() is called,
@@ -55,6 +64,32 @@ public class IGFJava2D implements IGF {
 	private Timer timer = new Timer();
 
 	/**
+	 * The mapping from font ids to their Font instances.
+	 */
+	private Map<Integer, Font> fonts = new HashMap<Integer, Font>();
+	/**
+	 * The counter used to generate font ids.
+	 */
+	private int fontIDCounter = 0;
+
+	/**
+	 * The fill color
+	 */
+	Color fillColor = Color.black;
+	/**
+	 * The stroke color.
+	 */
+	Color strokeColor = Color.black;
+	/**
+	 * Whether or not fill is enabled.
+	 */
+	boolean fillOn = true;
+	/**
+	 * Whether or not stroke is enabled.
+	 */
+	boolean strokeOn = false;
+
+	/**
 	 * Creates an instance of IGF backed by the Java2D API which will manage the
 	 * given application.
 	 */
@@ -63,6 +98,11 @@ public class IGFJava2D implements IGF {
 	}
 
 	public Frame showFrame(String title, int x, int y, int width, int height) {
+		if (showFrameWasCalled)
+			throw new RuntimeException(
+					"Attempted to call IGFOpenGL.showFrame() twice! Only one call to this function per instance is allowed.");
+		showFrameWasCalled = true;
+
 		Frame frame = new Frame(title);
 		frame.setBounds(x, y, width, height);
 
@@ -134,16 +174,13 @@ public class IGFJava2D implements IGF {
 	}
 
 	public void line(double x1, double y1, double x2, double y2) {
+		g.setColor(strokeColor);
 		g.drawLine((int) x1, (int) y1, (int) x2, (int) y2);
 	}
 
 	public void background(int gray) {
 		g.setColor(getGrayColor(gray));
 		g.fillRect(0, 0, (int) getWidth(), (int) getHeight());
-	}
-
-	public void fill(int gray) {
-		g.setColor(getGrayColor(gray));
 	}
 
 	/**
@@ -159,13 +196,20 @@ public class IGFJava2D implements IGF {
 	}
 
 	public void circle(double x, double y, double radius) {
+		g.setColor(fillColor);
 		int r2 = (int) (radius * 2);
 		g.fillOval((int) (x - radius), (int) (y - radius), r2, r2);
 	}
 
 	@Override
+	public void fill(int gray) {
+		fillColor = getGrayColor(gray);
+	}
+
+	@Override
 	public void fill(int red, int green, int blue) {
-		g.setColor(new Color(red, green, blue));
+		// TODO cache color objects to avoid object creation
+		fillColor = new Color(red, green, blue);
 	}
 
 	@Override
@@ -175,7 +219,7 @@ public class IGFJava2D implements IGF {
 
 	@Override
 	public void stroke(int red, int green, int blue) {
-		((Graphics2D) g).setPaint(new Color(red, green, blue));
+		strokeColor = new Color(red, green, blue);
 	}
 
 	@Override
@@ -208,4 +252,73 @@ public class IGFJava2D implements IGF {
 		return images.get(imageID).getHeight(null);
 	}
 
+	@Override
+	public void noFill() {
+		// TODO Auto-generated method stub
+
+	}
+
+	@Override
+	public void fill(int gray, int alpha) {
+		// TODO Auto-generated method stub
+
+	}
+
+	@Override
+	public void fill(int red, int green, int blue, int alpha) {
+		// TODO Auto-generated method stub
+
+	}
+
+	@Override
+	public void stroke(int gray, int alpha) {
+		// TODO Auto-generated method stub
+
+	}
+
+	@Override
+	public void stroke(int red, int green, int blue, int alpha) {
+		// TODO Auto-generated method stub
+
+	}
+
+	@Override
+	public int loadFont(Font font) {
+		int fontID = fontIDCounter++;
+		fonts.put(fontID, font);
+		return fontID;
+	}
+
+	@Override
+	public void text(String textString, int fontID, double x, double y) {
+		double scale = 1;
+		double rotation = 0;
+		text(textString, fontID, x, y, scale, rotation);
+	}
+
+	@Override
+	public void text(String textString, int fontID, double x, double y,
+			double scale, double rotation) {
+		// TODO implement scale
+		// TODO implement rotation
+		// TODO implement stroke
+
+		Font font = fonts.get(fontID);
+		Graphics2D g2 = (Graphics2D) (g);
+		FontRenderContext frc = g2.getFontRenderContext();
+		TextLayout tl = new TextLayout(textString, font, frc);
+		g2.setColor(fillColor);
+		tl.draw(g2, (float) x, (float) y);
+	}
+
+	@Override
+	public double getTextWidth(String textString, int fontID) {
+		return 0;
+	}
+
+	@Override
+	public double getTextHeight(String textString, int fontID) {
+		// TODO Auto-generated method stub
+		return 0;
+	}
 }
