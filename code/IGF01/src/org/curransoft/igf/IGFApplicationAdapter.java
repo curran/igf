@@ -31,15 +31,15 @@ public class IGFApplicationAdapter implements IGFApplication {
 
 	}
 
-	public void keyPressed(IGF g) {
+	public void keyPressed(IGF g, IGFKey k) {
 
 	}
 
-	public void keyReleased(IGF g) {
+	public void keyReleased(IGF g, IGFKey k) {
 
 	}
 
-	public void keyTyped(IGF g) {
+	public void keyTyped(IGF g, IGFKey k) {
 
 	}
 

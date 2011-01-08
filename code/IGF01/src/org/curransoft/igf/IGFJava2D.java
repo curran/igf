@@ -12,6 +12,8 @@ import java.awt.event.MouseAdapter;
 import java.awt.event.WindowAdapter;
 import java.util.HashMap;
 import java.util.Map;
+import java.util.Timer;
+import java.util.TimerTask;
 
 /**
  * A Java2D implementation of IGF.
@@ -48,6 +50,11 @@ public class IGFJava2D implements IGF {
 	private int imageIdCounter = 0;
 
 	/**
+	 * The thread used for periodically calling draw() in the application.
+	 */
+	private Timer timer = new Timer();
+
+	/**
 	 * Creates an instance of IGF backed by the Java2D API which will manage the
 	 * given application.
 	 */
@@ -73,6 +80,17 @@ public class IGFJava2D implements IGF {
 		frame.addKeyListener(keyListener);
 		frame.addWindowListener(windowListener);
 		frame.setVisible(true);
+
+		// animate at 60 frames per second
+		int fps = 60;
+		// period = time in milliseconds between successive task executions
+		final long period = (long) (1000.0 / fps);
+		timer.scheduleAtFixedRate(new TimerTask() {
+			public void run() {
+				drawingArea.repaint(period);
+			}
+		}, 0, period);
+
 		return frame;
 	}
 
@@ -157,7 +175,7 @@ public class IGFJava2D implements IGF {
 
 	@Override
 	public void stroke(int red, int green, int blue) {
-		((Graphics2D) g).setPaint(new Color(red,green,blue));
+		((Graphics2D) g).setPaint(new Color(red, green, blue));
 	}
 
 	@Override
@@ -189,4 +207,5 @@ public class IGFJava2D implements IGF {
 	public double getImageHeight(int imageID) {
 		return images.get(imageID).getHeight(null);
 	}
+
 }

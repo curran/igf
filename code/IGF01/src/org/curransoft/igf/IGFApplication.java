@@ -1,4 +1,6 @@
 package org.curransoft.igf;
+
+
 /**
  * The API specification for IGF applications. Much influence for the design
  * came from the Processing project (processing.org).
@@ -67,18 +69,18 @@ public interface IGFApplication {
 	/**
 	 * Called when a key on the keyboard is pressed.
 	 */
-	public void keyPressed(IGF g);
+	public void keyPressed(IGF g, IGFKey k);
 
 	/**
 	 * Called when a key on the keyboard is released.
 	 */
-	public void keyReleased(IGF g);
+	public void keyReleased(IGF g, IGFKey k);
 
 	/**
 	 * Called when a key on the keyboard is typed (pressed and released, or held
 	 * down to repeatedly "type" itself).
 	 */
-	public void keyTyped(IGF g);
+	public void keyTyped(IGF g, IGFKey k);
 
 	/**
 	 * Called when the user exits the program by closing the window or

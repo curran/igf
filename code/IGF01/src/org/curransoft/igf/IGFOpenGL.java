@@ -120,6 +120,7 @@ public class IGFOpenGL implements IGF {
 		frame.setBounds(x, y, width, height);
 		frame.setVisible(true);
 		drawingArea.requestFocus();
+		animator.start();
 		return frame;
 	}
 

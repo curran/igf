@@ -16,6 +16,7 @@ public interface IGF {
 	 * will have this id.
 	 */
 	public static final int MOUSE_POINT_ID = -1;
+	
 
 	/**
 	 * Shows a frame with the given bounds containing the given application.
@@ -100,23 +101,20 @@ public interface IGF {
 	 * call to loadImage()).
 	 */
 	double getImageHeight(int imageID);
-
-//TODO add text rendering support:
-/*
-//returns a font id
-int loadFont(Font font);
-void text(int fontID, String text, double x, double y)
-
-renderer = new TextRenderer(new Font("SansSerif", Font.BOLD, 36));
-    
-In the display method of your GLEventListener, add:
-
-    renderer.beginRendering(drawable.getWidth(), drawable.getHeight());
-    // optionally set the color
-    renderer.setColor(1.0f, 0.2f, 0.2f, 0.8f);
-    renderer.draw("Text to draw", xPosition, yPosition);
-    // ... more draw commands, color changes, etc.
-    renderer.endRendering();
 }
-from http://www.cse.unsw.edu.au/~cs3421/jogl/javadoc_public/com/sun/opengl/util/j2d/TextRenderer.html
-*/
+// TODO add text rendering support:
+/*
+ * //returns a font id int loadFont(Font font); void text(int fontID, String
+ * text, double x, double y)
+ * 
+ * renderer = new TextRenderer(new Font("SansSerif", Font.BOLD, 36));
+ * 
+ * In the display method of your GLEventListener, add:
+ * 
+ * renderer.beginRendering(drawable.getWidth(), drawable.getHeight()); //
+ * optionally set the color renderer.setColor(1.0f, 0.2f, 0.2f, 0.8f);
+ * renderer.draw("Text to draw", xPosition, yPosition); // ... more draw
+ * commands, color changes, etc. renderer.endRendering(); } from
+ * http://www.cse.unsw
+ * .edu.au/~cs3421/jogl/javadoc_public/com/sun/opengl/util/j2d/TextRenderer.html
+ */
