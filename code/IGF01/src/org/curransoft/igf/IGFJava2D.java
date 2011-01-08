@@ -321,4 +321,9 @@ public class IGFJava2D implements IGF {
 		// TODO Auto-generated method stub
 		return 0;
 	}
+
+	@Override
+	public void noStroke() {
+		strokeOn = false;
+	}
 }

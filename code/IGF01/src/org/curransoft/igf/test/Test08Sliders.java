@@ -20,11 +20,6 @@ public class Test08Sliders extends IGFApplicationAdapter {
 		TestUtils.testApplication(new Test08Sliders(), new Test08Sliders());
 	}
 	
-	public Test08Sliders(){
-		sliders.add(new Slider(20,30,280,30,0  ,1  ,0.5  ,15));
-		sliders.add(new Slider(20,60,280,60,0  ,1  ,0.5  ,15));
-	}
-
 	/**
 	 * the global list of sliders to keep track of
 	 */
@@ -38,6 +33,11 @@ public class Test08Sliders extends IGFApplicationAdapter {
 	 */
 	Slider sliderBeingDragged;
 
+	public Test08Sliders(){
+		sliders.add(new Slider(20,30,280,30,0  ,1  ,0.5  ,15));
+		sliders.add(new Slider(20,60,280,60,0  ,1  ,0.5  ,15));
+	}
+	
 	class Slider {
 		private boolean isBeingDragged = false;
 		private Interval x, y, interval;

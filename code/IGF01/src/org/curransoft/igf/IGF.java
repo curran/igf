@@ -5,7 +5,8 @@ import java.awt.Frame;
 import java.awt.Image;
 
 /**
- * The API specification for the Interactive Graphics Framework.
+ * The API specification for the immediate mode graphics component of the
+ * Interactive Graphics Framework.
  * 
  * @author curran
  * 
@@ -53,7 +54,7 @@ public interface IGF {
 	void background(int gray);
 
 	/**
-	 * Turns the fill color off. The fill color is turned on when fill() is
+	 * Turns the fill color off. The fill color is turned on when fill(...) is
 	 * called. It only makes sense to draw shapes with a stroke only after
 	 * calling noFill().
 	 */
@@ -81,6 +82,13 @@ public interface IGF {
 	 * values (each from 0 to 255).
 	 */
 	void fill(int red, int green, int blue, int alpha);
+
+	/**
+	 * Turns the stroke color off. The stroke color is turned on when
+	 * stroke(...) is called. It only makes sense to draw shapes with a stroke
+	 * only after calling noStroke().
+	 */
+	void noStroke();
 
 	/**
 	 * Sets the stroke color to the given shade of gray (0 to 255).

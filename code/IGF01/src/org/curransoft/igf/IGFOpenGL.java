@@ -405,4 +405,10 @@ public class IGFOpenGL implements IGF {
 
 	}
 
+	@Override
+	public void noStroke() {
+		// TODO Auto-generated method stub
+		
+	}
+
 }
