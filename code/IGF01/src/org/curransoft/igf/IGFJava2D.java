@@ -43,7 +43,7 @@ public class IGFJava2D implements IGF {
 	Graphics g;
 
 	/**
-	 * The component which is the drawing area for this
+	 * The Java Swing component which serves as the drawing area.
 	 */
 	Component drawingArea;
 
@@ -202,27 +202,6 @@ public class IGFJava2D implements IGF {
 	}
 
 	@Override
-	public void fill(int gray) {
-		fillColor = getGrayColor(gray);
-	}
-
-	@Override
-	public void fill(int red, int green, int blue) {
-		// TODO cache color objects to avoid object creation
-		fillColor = new Color(red, green, blue);
-	}
-
-	@Override
-	public void stroke(int gray) {
-		stroke(gray, gray, gray);
-	}
-
-	@Override
-	public void stroke(int red, int green, int blue) {
-		strokeColor = new Color(red, green, blue);
-	}
-
-	@Override
 	public void strokeWeight(double weight) {
 		// TODO fix this wasteful creation of objects
 		((Graphics2D) g).setStroke(new BasicStroke((float) weight,
@@ -250,36 +229,6 @@ public class IGFJava2D implements IGF {
 	@Override
 	public double getImageHeight(int imageID) {
 		return images.get(imageID).getHeight(null);
-	}
-
-	@Override
-	public void noFill() {
-		// TODO Auto-generated method stub
-
-	}
-
-	@Override
-	public void fill(int gray, int alpha) {
-		// TODO Auto-generated method stub
-
-	}
-
-	@Override
-	public void fill(int red, int green, int blue, int alpha) {
-		// TODO Auto-generated method stub
-
-	}
-
-	@Override
-	public void stroke(int gray, int alpha) {
-		// TODO Auto-generated method stub
-
-	}
-
-	@Override
-	public void stroke(int red, int green, int blue, int alpha) {
-		// TODO Auto-generated method stub
-
 	}
 
 	@Override
@@ -323,7 +272,59 @@ public class IGFJava2D implements IGF {
 	}
 
 	@Override
+	public void noFill() {
+		fillOn = false;
+	}
+
+	@Override
+	public void fill(double gray) {
+		fill(gray, 1);
+	}
+
+	@Override
+	public void fill(double gray, double alpha) {
+		fill(gray, gray, gray, alpha);
+	}
+
+	@Override
+	public void fill(double red, double green, double blue) {
+		fill(red, green, blue, 1);
+	}
+
+	@Override
+	public void fill(double red, double green, double blue, double alpha) {
+		// TODO cache color objects
+		fillColor = new Color((float) red, (float) green, (float) blue,
+				(float) alpha);
+		fillOn = true;
+	}
+
+	@Override
 	public void noStroke() {
 		strokeOn = false;
 	}
+
+	@Override
+	public void stroke(double gray) {
+		stroke(gray, 1);
+	}
+
+	@Override
+	public void stroke(double gray, double alpha) {
+		stroke(gray, gray, gray, alpha);
+	}
+
+	@Override
+	public void stroke(double red, double green, double blue) {
+		stroke(red, green, blue, 1);
+	}
+
+	@Override
+	public void stroke(double red, double green, double blue, double alpha) {
+		// TODO cache color objects
+		strokeColor = new Color((float) red, (float) green, (float) blue,
+				(float) alpha);
+		strokeOn = true;
+	}
+
 }

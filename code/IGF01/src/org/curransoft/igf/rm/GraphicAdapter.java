@@ -1,7 +1,7 @@
-package org.curransoft.igf.test;
+package org.curransoft.igf.rm;
 
+import org.curransoft.igf.FillAndStrokeParameters;
 import org.curransoft.igf.IGF;
-import org.curransoft.igf.rm.Graphic;
 
 /**
  * A convenience class with which lets you implement a Graphic without having to
@@ -58,32 +58,11 @@ public class GraphicAdapter implements Graphic {
 	}
 
 	/**
-	 * Does nothing, subclasses can override.
+	 * Returns null, subclasses can override.
 	 */
 	@Override
-	public void setFill(int red, int green, int blue, int alpha) {
-
-	}
-
-	/**
-	 * Does nothing, subclasses can override.
-	 */
-	@Override
-	public void setNoFill() {
-	}
-
-	/**
-	 * Does nothing, subclasses can override.
-	 */
-	@Override
-	public void setStroke(int red, int green, int blue, int alpha) {
-	}
-
-	/**
-	 * Does nothing, subclasses can override.
-	 */
-	@Override
-	public void setNoStroke() {
+	public FillAndStrokeParameters getFillAndStrokeParameters() {
+		return null;
 	}
 
 }

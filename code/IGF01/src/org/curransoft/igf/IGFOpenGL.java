@@ -265,46 +265,61 @@ public class IGFOpenGL implements IGF {
 	}
 
 	@Override
-	public void fill(int gray) {
-		fill(gray, gray, gray);
-	}
-
-	@Override
 	public void noFill() {
 		fillOn = false;
 	}
 
 	@Override
-	public void fill(int gray, int alpha) {
+	public void fill(double gray) {
+		fill(gray, 1);
+	}
+
+	@Override
+	public void fill(double gray, double alpha) {
 		fill(gray, gray, gray, alpha);
 	}
 
 	@Override
-	public void fill(int red, int green, int blue) {
-		fillR = red / 255.0;
-		fillG = green / 255.0;
-		fillB = blue / 255.0;
-		fillA = 1;
+	public void fill(double red, double green, double blue) {
+		fill(red, green, blue, 1);
 	}
 
 	@Override
-	public void fill(int red, int green, int blue, int alpha) {
-		fillR = red / 255.0;
-		fillG = green / 255.0;
-		fillB = blue / 255.0;
-		fillA = alpha / 255.0;
+	public void fill(double red, double green, double blue, double alpha) {
+		fillR = red;
+		fillG = green;
+		fillB = blue;
+		fillA = alpha;
+		fillOn = true;
+	}
+	
+	@Override
+	public void noStroke() {
+		strokeOn = false;
 	}
 
 	@Override
-	public void stroke(int gray) {
-		stroke(gray, gray, gray);
+	public void stroke(double gray) {
+		stroke(gray, 1);
 	}
 
 	@Override
-	public void stroke(int red, int green, int blue) {
-		strokeR = red / 255.0;
-		strokeG = green / 255.0;
-		strokeB = blue / 255.0;
+	public void stroke(double gray, double alpha) {
+		stroke(gray, gray, gray, alpha);
+	}
+
+	@Override
+	public void stroke(double red, double green, double blue) {
+		stroke(red, green, blue, 1);
+	}
+
+	@Override
+	public void stroke(double red, double green, double blue, double alpha) {
+		strokeR = red;
+		strokeG = green;
+		strokeB = blue;
+		strokeA = alpha;
+		strokeOn = true;
 	}
 
 	@Override
@@ -391,24 +406,6 @@ public class IGFOpenGL implements IGF {
 	public double getTextHeight(String textString, int fontID) {
 		// TODO Auto-generated method stub
 		return 0;
-	}
-
-	@Override
-	public void stroke(int gray, int alpha) {
-		// TODO Auto-generated method stub
-
-	}
-
-	@Override
-	public void stroke(int red, int green, int blue, int alpha) {
-		// TODO Auto-generated method stub
-
-	}
-
-	@Override
-	public void noStroke() {
-		// TODO Auto-generated method stub
-		
 	}
 
 }

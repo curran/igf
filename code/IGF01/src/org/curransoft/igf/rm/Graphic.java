@@ -1,5 +1,6 @@
 package org.curransoft.igf.rm;
 
+import org.curransoft.igf.FillAndStrokeParameters;
 import org.curransoft.igf.IGF;
 
 /**
@@ -62,24 +63,9 @@ public interface Graphic {
 	public void endDrag();
 
 	/**
-	 * Sets the fill color for this graphic.
+	 * Gets the (mutable) fill and stroke parameters for this Graphic.
 	 */
-	public void setFill(int red, int green, int blue, int alpha);
-
-	/**
-	 * Turns the fill off for this graphic.
-	 */
-	public void setNoFill();
-
-	/**
-	 * Sets the stroke color for this graphic.
-	 */
-	public void setStroke(int red, int green, int blue, int alpha);
-
-	/**
-	 * Turns the stroke off for this graphic.
-	 */
-	public void setNoStroke();
+	public FillAndStrokeParameters getFillAndStrokeParameters();
 
 	// TODO implement focus
 }

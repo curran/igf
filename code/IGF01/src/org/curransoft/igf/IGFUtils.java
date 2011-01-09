@@ -9,8 +9,9 @@ import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
 
 /**
- * A class intended for use by IGF implementations for generating generic IGF
- * mouse and key listeners.
+ * A convenience class intended for use by IGF implementations for generating
+ * generic IGF mouse and key listeners. These listeners just forward the events
+ * to the IGFApplication.
  * 
  * @author curran
  * 

@@ -2,6 +2,7 @@ package org.curransoft.igf.test;
 
 import org.curransoft.igf.IGF;
 import org.curransoft.igf.rm.DraggableCircle;
+import org.curransoft.igf.rm.GraphicAdapter;
 import org.curransoft.igf.rm.IGFRetainedModeApplicationAdapter;
 
 /**

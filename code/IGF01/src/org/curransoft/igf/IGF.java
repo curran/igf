@@ -49,7 +49,7 @@ public interface IGF {
 
 	/**
 	 * Fills a rectangle the size of the drawing area with the given shade of
-	 * gray (0 to 255).
+	 * gray (0 to 1).
 	 */
 	void background(int gray);
 
@@ -61,27 +61,27 @@ public interface IGF {
 	void noFill();
 
 	/**
-	 * Sets the current fill color to the given shade of gray (0 to 255).
+	 * Sets the current fill color to the given shade of gray (0 to 1).
 	 */
-	void fill(int gray);
+	void fill(double gray);
 
 	/**
 	 * Sets the current fill color to the given shade of gray with the given
-	 * alpha value (both from 0 to 255).
+	 * alpha value (both from 0 to 1).
 	 */
-	void fill(int gray, int alpha);
+	void fill(double gray, double alpha);
 
 	/**
 	 * Sets the current fill color to the given red, green and blue values (each
-	 * from 0 to 255).
+	 * from 0 to 1).
 	 */
-	void fill(int red, int green, int blue);
+	void fill(double red, double green, double blue);
 
 	/**
 	 * Sets the current fill color to the given red, green, blue and alpha
-	 * values (each from 0 to 255).
+	 * values (each from 0 to 1).
 	 */
-	void fill(int red, int green, int blue, int alpha);
+	void fill(double red, double green, double blue, double alpha);
 
 	/**
 	 * Turns the stroke color off. The stroke color is turned on when
@@ -91,27 +91,27 @@ public interface IGF {
 	void noStroke();
 
 	/**
-	 * Sets the stroke color to the given shade of gray (0 to 255).
+	 * Sets the stroke color to the given shade of gray (0 to 1).
 	 */
-	void stroke(int gray);
+	void stroke(double gray);
 
 	/**
 	 * Sets the stroke color to the given shade of gray with the given alpha
-	 * value (both from 0 to 255).
+	 * value (both from 0 to 1).
 	 */
-	void stroke(int gray, int alpha);
+	void stroke(double gray, double alpha);
 
 	/**
 	 * Sets the current stroke color to the given red, green and blue values
-	 * (each from 0 to 255).
+	 * (each from 0 to 1).
 	 */
-	void stroke(int red, int green, int blue);
+	void stroke(double red, double green, double blue);
 
 	/**
 	 * Sets the current stroke color to the given red, green and blue and alpha
-	 * values (each from 0 to 255).
+	 * values (each from 0 to 1).
 	 */
-	void stroke(int red, int green, int blue, int alpha);
+	void stroke(double red, double green, double blue, double alpha);
 
 	/**
 	 * Draws a circle with the given (x, y) center point and the given radius.
