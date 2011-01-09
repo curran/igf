@@ -5,7 +5,7 @@ import java.awt.Image;
 
 /**
  * The Interactive Graphics Framework API specification for the immediate mode
- * graphics and mouse/keyboard events. .
+ * graphics and mouse/keyboard events.
  * 
  * @author curran
  * 
@@ -42,6 +42,12 @@ public interface ImmediateModeGraphics {
 	 * radius.The current fill and stroke style is used (see style()).
 	 */
 	void drawCircle(double x, double y, double radius);
+
+	/**
+	 * Draws a rectangle. The current fill and stroke style is used (see
+	 * style()).
+	 */
+	void drawRectangle(double x, double y, double width, double height);
 
 	/**
 	 * Fills a rectangle the size of the drawing area with the current fill

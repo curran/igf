@@ -14,7 +14,8 @@ import java.util.TimerTask;
 import javax.swing.JPanel;
 
 /**
- * A Java2D implementation of IGF immediate mode graphics.
+ * A Java2D implementation of IGF immediate mode graphics. showInFrame() must be
+ * called to initialize the application.
  * 
  * @author curran
  * 
@@ -124,6 +125,8 @@ public class Java2DImmediateModeGraphics extends AbstractImmediateModeGraphics {
 			public void paint(Graphics javaGraphics) {
 				// set the graphics hook
 				thiz.java2DGraphics = javaGraphics;
+
+				// call application.setup() the first time through
 				if (firstRun) {
 					firstRun = false;
 					application.setup(thiz);
@@ -251,5 +254,11 @@ public class Java2DImmediateModeGraphics extends AbstractImmediateModeGraphics {
 	 */
 	private void setStrokeColor() {
 		java2DGraphics.setColor(style().getStrokeColor());
+	}
+
+	@Override
+	public void drawRectangle(double x, double y, double width, double height) {
+		// TODO Auto-generated method stub
+		
 	}
 }

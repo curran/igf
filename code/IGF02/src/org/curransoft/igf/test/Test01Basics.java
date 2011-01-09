@@ -1,8 +1,8 @@
+package org.curransoft.igf.test;
 import org.curransoft.igf.im.FillAndStrokeParameters;
 import org.curransoft.igf.im.IGFApplication;
 import org.curransoft.igf.im.ImmediateModeGraphics;
 import org.curransoft.igf.im.KeyboardKey;
-import org.curransoft.igf.test.TestUtils;
 
 /**
  * A unit test for fill/stroke styles on lines, window resizing, keyboard events

@@ -2,6 +2,7 @@ package org.curransoft.igf.test;
 
 import org.curransoft.igf.im.IGFApplication;
 import org.curransoft.igf.im.Java2DImmediateModeGraphics;
+import org.curransoft.igf.im.OpenGLImmediateModeGraphics;
 
 /**
  * A utility class for running unit tests in multiple graphics implementations
@@ -23,7 +24,7 @@ public class TestUtils {
 		Java2DImmediateModeGraphics gJava = new Java2DImmediateModeGraphics();
 		gJava.showInFrame("Hello Java2D", 0, 0, w, h, application1);
 
-		// ImmediateModeGraphics gOGL = new IGFOpenGL(application2);
-		// gOGL.showFrame("Hello OpenGL", w, 0, w, h);
+		OpenGLImmediateModeGraphics gOGL = new OpenGLImmediateModeGraphics();
+		gOGL.showInFrame("Hello OpenGL", w, 0, w, h, application2);
 	}
 }
