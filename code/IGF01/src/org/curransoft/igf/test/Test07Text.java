@@ -12,8 +12,6 @@ import org.curransoft.igf.IGFApplicationAdapter;
  * 
  */
 public class Test07Text extends IGFApplicationAdapter {
-	static int appIdCounter = 0;
-	int appId = appIdCounter++;
 
 	int fontID = IGF.INVALID_FONT_ID;
 
