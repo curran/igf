@@ -3,12 +3,12 @@ package org.curransoft.igf.im;
 import java.awt.Color;
 
 /**
- * Fill (color,on/off) and stroke (color,on/off,weight) parameters.
+ * Mutable fill (color,on/off) and stroke (color,on/off,weight) parameters.
  * 
  * @author curran
  * 
  */
-public class FillAndStrokeParameters {
+public class FillAndStroke {
 	/**
 	 * Whether or not the fill (the color inside shapes) is enabled.
 	 */
@@ -249,7 +249,7 @@ public class FillAndStrokeParameters {
 	/**
 	 * Sets the current fill color to the given shade of gray (0 to 1).
 	 */
-	void setFill(double gray) {
+	public void setFill(double gray) {
 		setFill(gray, 1);
 	}
 
@@ -257,7 +257,7 @@ public class FillAndStrokeParameters {
 	 * Sets the current fill color to the given shade of gray with the given
 	 * alpha value (each from 0 to 1).
 	 */
-	void setFill(double gray, double alpha) {
+	public void setFill(double gray, double alpha) {
 		setFill(gray, gray, gray, alpha);
 	}
 
@@ -265,7 +265,7 @@ public class FillAndStrokeParameters {
 	 * Sets the current fill color to the given red, green and blue values (each
 	 * from 0 to 1).
 	 */
-	void setFill(double red, double green, double blue) {
+	public void setFill(double red, double green, double blue) {
 		setFill(red, green, blue, 1);
 	}
 
@@ -273,7 +273,7 @@ public class FillAndStrokeParameters {
 	 * Sets the current fill color to the given red, green, blue and alpha
 	 * values (each from 0 to 1).
 	 */
-	void setFill(double red, double green, double blue, double alpha) {
+	public void setFill(double red, double green, double blue, double alpha) {
 		setFillRed(red);
 		setFillGreen(green);
 		setFillBlue(blue);
@@ -306,7 +306,7 @@ public class FillAndStrokeParameters {
 	/**
 	 * Sets the current stroke color to the given shade of gray (0 to 1).
 	 */
-	void setStroke(double gray) {
+	public void setStroke(double gray) {
 		setStroke(gray, 1);
 	}
 
@@ -314,7 +314,7 @@ public class FillAndStrokeParameters {
 	 * Sets the current stroke color to the given shade of gray with the given
 	 * alpha value (each from 0 to 1).
 	 */
-	void setStroke(double gray, double alpha) {
+	public void setStroke(double gray, double alpha) {
 		setStroke(gray, gray, gray, alpha);
 	}
 
@@ -322,7 +322,7 @@ public class FillAndStrokeParameters {
 	 * Sets the current stroke color to the given red, green and blue values
 	 * (each from 0 to 1).
 	 */
-	void setStroke(double red, double green, double blue) {
+	public void setStroke(double red, double green, double blue) {
 		setStroke(red, green, blue, 1);
 	}
 
@@ -330,7 +330,7 @@ public class FillAndStrokeParameters {
 	 * Sets the current stroke color to the given red, green, blue and alpha
 	 * values (each from 0 to 1).
 	 */
-	void setStroke(double red, double green, double blue, double alpha) {
+	public void setStroke(double red, double green, double blue, double alpha) {
 		setStrokeRed(red);
 		setStrokeGreen(green);
 		setStrokeBlue(blue);

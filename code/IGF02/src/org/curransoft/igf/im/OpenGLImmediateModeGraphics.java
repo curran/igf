@@ -229,7 +229,7 @@ public class OpenGLImmediateModeGraphics extends AbstractImmediateModeGraphics {
 	@Override
 	public void drawBackground() {
 		checkGL();
-		FillAndStrokeParameters s = style();
+		FillAndStroke s = style();
 		gl.glClearColor((float) s.getFillRed(), (float) s.getFillGreen(),
 				(float) s.getFillBlue(), (float) s.getFillAlpha());
 		gl.glClear(GL.GL_COLOR_BUFFER_BIT);
@@ -311,7 +311,7 @@ public class OpenGLImmediateModeGraphics extends AbstractImmediateModeGraphics {
 	 * Sets the color state of OpenGL to the fill color stored in super.style().
 	 */
 	private void setFillColor() {
-		FillAndStrokeParameters s = style();
+		FillAndStroke s = style();
 		gl.glColor4d(s.getFillRed(), s.getFillGreen(), s.getFillBlue(),
 				s.getFillAlpha());
 	}

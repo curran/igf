@@ -29,7 +29,7 @@ public interface ImmediateModeGraphics {
 	 * should be called to in order to set the fill (color,on/off) and stroke
 	 * (color,on/off,weight) parameters.
 	 */
-	public FillAndStrokeParameters style();
+	public FillAndStroke style();
 
 	/**
 	 * Draws a line from (x1,y1) to (x2,y2). The current stroke color and weight

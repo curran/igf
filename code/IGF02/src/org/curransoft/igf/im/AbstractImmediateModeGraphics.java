@@ -13,14 +13,14 @@ public abstract class AbstractImmediateModeGraphics implements
 	/**
 	 * The mutable fill and stroke style.
 	 */
-	private FillAndStrokeParameters style = new FillAndStrokeParameters();
+	private FillAndStroke style = new FillAndStroke();
 
 	/**
 	 * This method is implemented by AbstractImmediateModeGraphics and should
 	 * not be overridden.
 	 */
 	@Override
-	public FillAndStrokeParameters style() {
+	public FillAndStroke style() {
 		return style;
 	}
 }

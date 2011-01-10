@@ -1,12 +1,13 @@
 package org.curransoft.igf.test;
-import org.curransoft.igf.im.FillAndStrokeParameters;
+
+import org.curransoft.igf.im.FillAndStroke;
 import org.curransoft.igf.im.IGFApplication;
 import org.curransoft.igf.im.ImmediateModeGraphics;
 import org.curransoft.igf.im.KeyboardKey;
 
 /**
- * A unit test for fill/stroke styles on lines, window resizing, keyboard events
- * and mouse/touch events.
+ * A unit test for drawing lines, window resizing, keyboard events and
+ * mouse/touch events.
  * 
  * @author curran
  * 
@@ -23,7 +24,7 @@ public class Test01Basics implements IGFApplication {
 	}
 
 	public void draw(ImmediateModeGraphics g) {
-		FillAndStrokeParameters style = g.style();
+		FillAndStroke style = g.style();
 		style.setFillToWhite();
 		g.drawBackground();
 
@@ -33,13 +34,12 @@ public class Test01Basics implements IGFApplication {
 		style.setStrokeWeight(1);
 		style.setStrokeToBlack();
 
-		// |/|
 		x1 = 0;
 		y1 = 0;
 		x2 = w;
 		y2 = h;
 		g.drawLine(x1, y1, x2, y2);
-		// |\|
+
 		x1 = w;
 		y1 = 0;
 		x2 = 0;
