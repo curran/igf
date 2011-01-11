@@ -1,9 +1,11 @@
 package org.curransoft.igf.im;
 
+import java.awt.BasicStroke;
 import java.awt.Component;
 import java.awt.Font;
 import java.awt.Frame;
 import java.awt.Graphics;
+import java.awt.Graphics2D;
 import java.awt.Image;
 import java.awt.event.KeyListener;
 import java.awt.event.MouseAdapter;
@@ -25,8 +27,7 @@ public class Java2DImmediateModeGraphics extends AbstractImmediateModeGraphics {
 	 * The currently active graphics. Set when paint() is called, set back to
 	 * null when paint() exits.
 	 */
-	Graphics java2DGraphics = null;
-
+	Graphics2D java2DGraphics = null;
 	/**
 	 * The Java Swing component which serves as the drawing area.
 	 */
@@ -46,6 +47,8 @@ public class Java2DImmediateModeGraphics extends AbstractImmediateModeGraphics {
 	 * testing if that method was called twice.
 	 */
 	private boolean showFrameWasCalled = false;
+
+	BasicStroke basicStroke;
 
 	/**
 	 * Initializes this immediate mode graphics implementation and shows it in a
@@ -124,7 +127,7 @@ public class Java2DImmediateModeGraphics extends AbstractImmediateModeGraphics {
 
 			public void paint(Graphics javaGraphics) {
 				// set the graphics hook
-				thiz.java2DGraphics = javaGraphics;
+				thiz.java2DGraphics = (Graphics2D) javaGraphics;
 
 				// call application.setup() the first time through
 				if (firstRun) {
@@ -144,7 +147,7 @@ public class Java2DImmediateModeGraphics extends AbstractImmediateModeGraphics {
 	@Override
 	public void drawLine(double x1, double y1, double x2, double y2) {
 		checkG();
-		setStrokeColor();
+		setUpStroke();
 
 		double lineThickness = style().getStrokeWeight();
 		if (lineThickness < 2)
@@ -159,10 +162,17 @@ public class Java2DImmediateModeGraphics extends AbstractImmediateModeGraphics {
 	@Override
 	public void drawCircle(double x, double y, double radius) {
 		checkG();
-		setFillColor();
 		int r2 = (int) (radius * 2);
-		java2DGraphics.fillOval((int) (x - radius), (int) (y - radius), r2, r2);
-		// TODO implement proper stroke and unit tests
+		if (style().isFillOn()) {
+			setFillColor();
+			java2DGraphics.fillOval((int) (x - radius), (int) (y - radius), r2,
+					r2);
+		}
+		if (style().isStrokeOn()) {
+			setUpStroke();
+			java2DGraphics.drawOval((int) (x - radius), (int) (y - radius), r2,
+					r2);
+		}
 	}
 
 	@Override
@@ -252,13 +262,17 @@ public class Java2DImmediateModeGraphics extends AbstractImmediateModeGraphics {
 	 * Sets the color state of the current Java Graphics "java2DGraphics" object
 	 * to the stroke color stored in super.style().
 	 */
-	private void setStrokeColor() {
+	private void setUpStroke() {
 		java2DGraphics.setColor(style().getStrokeColor());
+		// TODO don't create so many new objects
+		basicStroke = new BasicStroke((float) style().getStrokeWeight(),
+				BasicStroke.CAP_BUTT, BasicStroke.JOIN_ROUND);
+		java2DGraphics.setStroke(basicStroke);
 	}
 
 	@Override
 	public void drawRectangle(double x, double y, double width, double height) {
 		// TODO Auto-generated method stub
-		
+
 	}
 }

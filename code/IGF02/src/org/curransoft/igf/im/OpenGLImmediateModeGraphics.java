@@ -26,6 +26,13 @@ import com.sun.opengl.util.Animator;
  */
 public class OpenGLImmediateModeGraphics extends AbstractImmediateModeGraphics {
 	/**
+	 * The angle increment used when drawing circles (radians).
+	 */
+	private static final double angleIncrement = 0.1;
+
+	private static final double PI2 = 2 * Math.PI;
+
+	/**
 	 * The graphics context used in display(). When the call to
 	 * application.draw() begins, this variable is set to something, then when
 	 * application.draw() ends, this variable is set back to null.
@@ -213,17 +220,46 @@ public class OpenGLImmediateModeGraphics extends AbstractImmediateModeGraphics {
 
 	@Override
 	public void drawCircle(double x, double y, double radius) {
+
+		// draw the filled circle
 		// TODO optimize this - make a circle display list and reuse that for
-		// every circle
-		setFillColor();
-		gl.glBegin(GL.GL_TRIANGLE_FAN);
-		gl.glVertex2d(x, y);
-		for (double angle = 0; angle < 360; angle += 5) {
-			double x1 = x + Math.sin(angle) * radius;
-			double y1 = y + Math.cos(angle) * radius;
-			gl.glVertex2d(x1, y1);
+		FillAndStroke style = style();
+		if (style.isFillOn()) {
+			setFillColor();
+			gl.glBegin(GL.GL_TRIANGLE_FAN);
+			for (double angle = 0; angle < PI2; angle += angleIncrement) {
+				double x1 = x + Math.sin(angle) * radius;
+				double y1 = y + Math.cos(angle) * radius;
+				gl.glVertex2d(x1, y1);
+			}
+			gl.glEnd();
 		}
-		gl.glEnd();
+
+		// draw the stroke of the circle
+		// TODO optimize this - make a ring display list and reuse that for
+		if (style.isStrokeOn()) {
+			double halfStrokeWeight = style.getStrokeWeight() / 2;
+			double outerRadius = radius + halfStrokeWeight;
+			double innerRadius = radius - halfStrokeWeight;
+			setStrokeColor();
+			gl.glBegin(GL.GL_TRIANGLE_STRIP);
+			boolean keepGoing = true;
+			for (double angle = 0; keepGoing; angle += angleIncrement) {
+				if (angle > PI2) {
+					keepGoing = false;
+					// end at exactly the beginning points
+					angle = 0;
+				}
+				double x1 = x + Math.sin(angle) * outerRadius;
+				double y1 = y + Math.cos(angle) * outerRadius;
+				gl.glVertex2d(x1, y1);
+
+				double x2 = x + Math.sin(angle) * innerRadius;
+				double y2 = y + Math.cos(angle) * innerRadius;
+				gl.glVertex2d(x2, y2);
+			}
+			gl.glEnd();
+		}
 	}
 
 	@Override

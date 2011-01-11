@@ -75,13 +75,6 @@ public class FillAndStroke {
 	}
 
 	/**
-	 * Whether or not the fill (the color inside shapes) is enabled.
-	 */
-	public void setFillOn(boolean fillOn) {
-		this.fillOn = fillOn;
-	}
-
-	/**
 	 * The red component of the fill color (between 0 and 1). The default value
 	 * is 0.
 	 */
@@ -91,10 +84,12 @@ public class FillAndStroke {
 
 	/**
 	 * The red component of the fill color (between 0 and 1). The default value
-	 * is 0.
+	 * is 0. Calling this also turns the fill on (afterwards, isFillOn() will
+	 * return true).
 	 */
 	public void setFillRed(double fillRed) {
 		this.fillRed = fillRed;
+		fillOn = true;
 	}
 
 	/**
@@ -107,10 +102,12 @@ public class FillAndStroke {
 
 	/**
 	 * The green component of the fill color (between 0 and 1). The default
-	 * value is 0.
+	 * value is 0. Calling this also turns the fill on (afterwards, isFillOn
+	 * will return true).
 	 */
 	public void setFillGreen(double fillGreen) {
 		this.fillGreen = fillGreen;
+		fillOn = true;
 	}
 
 	/**
@@ -123,10 +120,12 @@ public class FillAndStroke {
 
 	/**
 	 * The blue component of the fill color (between 0 and 1). The default value
-	 * is 0.
+	 * is 0. Calling this also turns the fill on (afterwards, isFillOn() will
+	 * return true).
 	 */
 	public void setFillBlue(double fillBlue) {
 		this.fillBlue = fillBlue;
+		fillOn = true;
 	}
 
 	/**
@@ -139,10 +138,76 @@ public class FillAndStroke {
 
 	/**
 	 * The alpha (transparency) component of the fill color (between 0 and
-	 * 1).The default value is 1 (opaque).
+	 * 1).The default value is 1 (opaque). Calling this also turns the fill on
+	 * (afterwards, isFillOn() will return true).
 	 */
 	public void setFillAlpha(double fillAlpha) {
 		this.fillAlpha = fillAlpha;
+		fillOn = true;
+	}
+
+	/**
+	 * Returns a Java Color view of the fill color. This causes new object
+	 * creation, avoid using this method often.
+	 */
+	public Color getFillColor() {
+		return new Color((float) fillRed, (float) fillGreen, (float) fillBlue,
+				(float) fillAlpha);
+	}
+
+	/**
+	 * Sets the current fill color to the given shade of gray (0 to 1).Calling
+	 * this also turns the fill on (afterwards, isFillOn() will return true).
+	 */
+	public void setFill(double gray) {
+		setFill(gray, 1);
+	}
+
+	/**
+	 * Sets the current fill color to the given shade of gray with the given
+	 * alpha value (each from 0 to 1).Calling this also turns the fill on
+	 * (afterwards, isFillOn() will return true).
+	 */
+	public void setFill(double gray, double alpha) {
+		setFill(gray, gray, gray, alpha);
+	}
+
+	/**
+	 * Sets the current fill color to the given red, green and blue values (each
+	 * from 0 to 1).Calling this also turns the fill on (afterwards, isFillOn
+	 * will return true).
+	 */
+	public void setFill(double red, double green, double blue) {
+		setFill(red, green, blue, 1);
+	}
+
+	/**
+	 * Sets the current fill color to the given red, green, blue and alpha
+	 * values (each from 0 to 1).Calling this also turns the fill on
+	 * (afterwards, isFillOn() will return true).
+	 */
+	public void setFill(double red, double green, double blue, double alpha) {
+		fillRed = red;
+		fillGreen = green;
+		fillBlue = blue;
+		fillAlpha = alpha;
+		fillOn = true;
+	}
+
+	/**
+	 * Sets the fill color to black.Calling this also turns the fill on
+	 * (afterwards, isFillOn() will return true).
+	 */
+	public void setFillToBlack() {
+		setFill(0);
+	}
+
+	/**
+	 * Sets the fill color to white.Calling this also turns the fill on
+	 * (afterwards, isFillOn() will return true).
+	 */
+	public void setFillToWhite() {
+		setFill(1);
 	}
 
 	/**
@@ -168,9 +233,13 @@ public class FillAndStroke {
 
 	/**
 	 * The weight (thickness, width) of the stroke. The default value is 1.
+	 * Calling this also turns the fill on (afterwards, isFillOn() will return
+	 * true). Calling this also turns the stroke on (afterwards, isStrokeOn()
+	 * will return true).
 	 */
 	public void setStrokeWeight(double strokeWeight) {
 		this.strokeWeight = strokeWeight;
+		strokeOn = true;
 	}
 
 	/**
@@ -183,10 +252,12 @@ public class FillAndStroke {
 
 	/**
 	 * The red component of the stroke color (between 0 and 1). The default
-	 * value is 0.
+	 * value is 0.Calling this also turns the stroke on (afterwards,
+	 * isStrokeOn() will return true).
 	 */
 	public void setStrokeRed(double strokeRed) {
 		this.strokeRed = strokeRed;
+		strokeOn = true;
 	}
 
 	/**
@@ -199,10 +270,12 @@ public class FillAndStroke {
 
 	/**
 	 * The green component of the stroke color (between 0 and 1). The default
-	 * value is 0.
+	 * value is 0.Calling this also turns the stroke on (afterwards,
+	 * isStrokeOn() will return true).
 	 */
 	public void setStrokeGreen(double strokeGreen) {
 		this.strokeGreen = strokeGreen;
+		strokeOn = true;
 	}
 
 	/**
@@ -215,10 +288,12 @@ public class FillAndStroke {
 
 	/**
 	 * The blue component of the stroke color (between 0 and 1). The default
-	 * value is 0.
+	 * value is 0.Calling this also turns the stroke on (afterwards,
+	 * isStrokeOn() will return true).
 	 */
 	public void setStrokeBlue(double strokeBlue) {
 		this.strokeBlue = strokeBlue;
+		strokeOn = true;
 	}
 
 	/**
@@ -231,67 +306,12 @@ public class FillAndStroke {
 
 	/**
 	 * The alpha (transparency) component of the stroke color (between 0 and 1).
-	 * The default value is 1 (opaque).
+	 * The default value is 1 (opaque).Calling this also turns the stroke on
+	 * (afterwards, isStrokeOn() will return true).
 	 */
 	public void setStrokeAlpha(double strokeAlpha) {
 		this.strokeAlpha = strokeAlpha;
-	}
-
-	/**
-	 * Returns a Java Color view of the fill color. This causes new object
-	 * creation, avoid using this method often.
-	 */
-	public Color getFillColor() {
-		return new Color((float) fillRed, (float) fillGreen, (float) fillBlue,
-				(float) fillAlpha);
-	}
-
-	/**
-	 * Sets the current fill color to the given shade of gray (0 to 1).
-	 */
-	public void setFill(double gray) {
-		setFill(gray, 1);
-	}
-
-	/**
-	 * Sets the current fill color to the given shade of gray with the given
-	 * alpha value (each from 0 to 1).
-	 */
-	public void setFill(double gray, double alpha) {
-		setFill(gray, gray, gray, alpha);
-	}
-
-	/**
-	 * Sets the current fill color to the given red, green and blue values (each
-	 * from 0 to 1).
-	 */
-	public void setFill(double red, double green, double blue) {
-		setFill(red, green, blue, 1);
-	}
-
-	/**
-	 * Sets the current fill color to the given red, green, blue and alpha
-	 * values (each from 0 to 1).
-	 */
-	public void setFill(double red, double green, double blue, double alpha) {
-		setFillRed(red);
-		setFillGreen(green);
-		setFillBlue(blue);
-		setFillAlpha(alpha);
-	}
-
-	/**
-	 * Sets the fill color to black.
-	 */
-	public void setFillToBlack() {
-		setFill(0);
-	}
-
-	/**
-	 * Sets the fill color to white.
-	 */
-	public void setFillToWhite() {
-		setFill(1);
+		strokeOn = true;
 	}
 
 	/**
@@ -304,7 +324,9 @@ public class FillAndStroke {
 	}
 
 	/**
-	 * Sets the current stroke color to the given shade of gray (0 to 1).
+	 * Sets the current stroke color to the given shade of gray (0 to 1).Calling
+	 * this also turns the stroke on (afterwards, isStrokeOn() will return
+	 * true).
 	 */
 	public void setStroke(double gray) {
 		setStroke(gray, 1);
@@ -312,7 +334,8 @@ public class FillAndStroke {
 
 	/**
 	 * Sets the current stroke color to the given shade of gray with the given
-	 * alpha value (each from 0 to 1).
+	 * alpha value (each from 0 to 1).Calling this also turns the stroke on
+	 * (afterwards, isStrokeOn() will return true).
 	 */
 	public void setStroke(double gray, double alpha) {
 		setStroke(gray, gray, gray, alpha);
@@ -320,7 +343,8 @@ public class FillAndStroke {
 
 	/**
 	 * Sets the current stroke color to the given red, green and blue values
-	 * (each from 0 to 1).
+	 * (each from 0 to 1).Calling this also turns the stroke on (afterwards,
+	 * isStrokeOn() will return true).
 	 */
 	public void setStroke(double red, double green, double blue) {
 		setStroke(red, green, blue, 1);
@@ -328,27 +352,30 @@ public class FillAndStroke {
 
 	/**
 	 * Sets the current stroke color to the given red, green, blue and alpha
-	 * values (each from 0 to 1).
+	 * values (each from 0 to 1). Calling this also turns the stroke on
+	 * (afterwards, isStrokeOn() will return true).
 	 */
 	public void setStroke(double red, double green, double blue, double alpha) {
-		setStrokeRed(red);
-		setStrokeGreen(green);
-		setStrokeBlue(blue);
-		setStrokeAlpha(alpha);
+		strokeRed = red;
+		strokeGreen = green;
+		strokeBlue = blue;
+		strokeAlpha = alpha;
+		strokeOn = true;
 	}
 
 	/**
-	 * Sets the stroke color to black.
+	 * Sets the stroke color to black.Calling this also turns the stroke on
+	 * (afterwards, isStrokeOn() will return true).
 	 */
 	public void setStrokeToBlack() {
 		setStroke(0);
 	}
 
 	/**
-	 * Sets the stroke color to white.
+	 * Sets the stroke color to white.Calling this also turns the stroke on
+	 * (afterwards, isStrokeOn() will return true).
 	 */
 	public void setStrokeToWhite() {
 		setStroke(1);
 	}
-
 }
