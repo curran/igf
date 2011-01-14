@@ -25,14 +25,14 @@ public class Test01Basics implements IGFApplication {
 
 	public void draw(ImmediateModeGraphics g) {
 		FillAndStroke style = g.style();
-		style.setFillToWhite();
+		style.fill().setToWhite();
 		g.drawBackground();
 
 		double w = g.getWidth(), h = g.getHeight();
 		double x1, y1, x2, y2;
 
 		style.setStrokeWeight(1);
-		style.setStrokeToBlack();
+		style.stroke().setToBlack();
 
 		x1 = 0;
 		y1 = 0;

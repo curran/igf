@@ -20,7 +20,7 @@ public class AbstractGraphic extends GraphicAdapter {
 
 	/**
 	 * Sets the stroke and stroke parameters of IGF but does not draw anything.
-	 * Subclasses can override AND MUST call super.draw() to set the stroke and
+	 * Subclasses can override AND MUST call super.draw() to set the fill and
 	 * stroke variables prior to drawing.
 	 */
 	@Override

@@ -1,6 +1,7 @@
 package org.curransoft.igf.im;
 
 import java.awt.BasicStroke;
+import java.awt.Color;
 import java.awt.Component;
 import java.awt.Font;
 import java.awt.Frame;
@@ -10,6 +11,10 @@ import java.awt.Image;
 import java.awt.event.KeyListener;
 import java.awt.event.MouseAdapter;
 import java.awt.event.WindowAdapter;
+import java.awt.font.FontRenderContext;
+import java.awt.font.TextLayout;
+import java.util.HashMap;
+import java.util.Map;
 import java.util.Timer;
 import java.util.TimerTask;
 
@@ -48,7 +53,19 @@ public class Java2DImmediateModeGraphics extends AbstractImmediateModeGraphics {
 	 */
 	private boolean showFrameWasCalled = false;
 
+	/**
+	 * A reusable stroke from the Java2D API.
+	 */
 	BasicStroke basicStroke;
+
+	/**
+	 * The mapping from font ids to their Font instances.
+	 */
+	private Map<Integer, Font> fonts = new HashMap<Integer, Font>();
+	/**
+	 * The counter used to generate font ids.
+	 */
+	private int fontIDCounter = 0;
 
 	/**
 	 * Initializes this immediate mode graphics implementation and shows it in a
@@ -218,14 +235,23 @@ public class Java2DImmediateModeGraphics extends AbstractImmediateModeGraphics {
 
 	@Override
 	public int loadFont(Font font) {
-		// TODO Auto-generated method stub
-		return 0;
+		int fontID = fontIDCounter++;
+		fonts.put(fontID, font);
+		return fontID;
 	}
 
 	@Override
-	public void text(String textString, int fontID, double x, double y) {
-		// TODO Auto-generated method stub
+	public void drawText(String textString, int fontID, double x, double y) {
+		// TODO implement scale
+		// TODO implement rotation
+		// TODO implement stroke
 
+		Font font = fonts.get(fontID);
+		Graphics2D g2 = (Graphics2D) (java2DGraphics);
+		FontRenderContext frc = g2.getFontRenderContext();
+		TextLayout tl = new TextLayout(textString, font, frc);
+		setFillColor();
+		tl.draw(g2, (float) x, (float) y);
 	}
 
 	@Override
@@ -255,7 +281,7 @@ public class Java2DImmediateModeGraphics extends AbstractImmediateModeGraphics {
 	 * to the fill color stored in super.style().
 	 */
 	private void setFillColor() {
-		java2DGraphics.setColor(style().getFillColor());
+		java2DGraphics.setColor(asJavaColor(style().fill()));
 	}
 
 	/**
@@ -263,11 +289,22 @@ public class Java2DImmediateModeGraphics extends AbstractImmediateModeGraphics {
 	 * to the stroke color stored in super.style().
 	 */
 	private void setUpStroke() {
-		java2DGraphics.setColor(style().getStrokeColor());
+		java2DGraphics.setColor(asJavaColor(style().stroke()));
 		// TODO don't create so many new objects
 		basicStroke = new BasicStroke((float) style().getStrokeWeight(),
 				BasicStroke.CAP_BUTT, BasicStroke.JOIN_ROUND);
 		java2DGraphics.setStroke(basicStroke);
+	}
+
+	/**
+	 * Creates a new Java color object :(
+	 */
+	private Color asJavaColor(MutableColor color) {
+		int red = (int) (255 * color.getRed());
+		int green = (int) (255 * color.getGreen());
+		int blue = (int) (255 * color.getBlue());
+		int alpha = (int) (255 * color.getAlpha());
+		return new Color(red, green, blue, alpha);
 	}
 
 	@Override

@@ -111,11 +111,12 @@ public interface ImmediateModeGraphics {
 	 * @param y
 	 *            the Y center coordinate for the text
 	 */
-	void text(String textString, int fontID, double x, double y/*
-																 * , double
-																 * scale, double
-																 * rotation
-																 */);
+	void drawText(String textString, int fontID, double x, double y/*
+																	 * , double
+																	 * scale,
+																	 * double
+																	 * rotation
+																	 */);
 
 	// TODO add scale and rotation
 	// * @param scale

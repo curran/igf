@@ -5,7 +5,7 @@ import org.curransoft.igf.im.IGFApplicationAdapter;
 import org.curransoft.igf.im.ImmediateModeGraphics;
 
 /**
- * A simple test of drawing circles.
+ * A test which draws many circles with click-toggled animation.
  * 
  * @author curran
  * 
@@ -23,11 +23,11 @@ public class Test03Circles extends IGFApplicationAdapter {
 		if (timeIsPassing)
 			t += tInterval;
 		FillAndStroke style = g.style();
-		style.setFill(0.5);
+		style.fill().set(0.5);
 		g.drawBackground();
 
-		style.setFillToWhite();
-		style.setStrokeToBlack();
+		style.fill().setToWhite();
+		style.stroke().setToBlack();
 		style.setStrokeWeight(5);
 
 		double x = g.getWidth() / 2;
@@ -36,15 +36,18 @@ public class Test03Circles extends IGFApplicationAdapter {
 		g.drawCircle(x, y, radius);
 
 		int n = 50;
+		style.setStrokeOn(false);
+		style.setFillOn(true);
+
 		for (double i = 0; i < n; i++) {
 			double p = i / n;
 			radius = 30;
-			style.setStrokeOn(false);
+
 			double angle = p * Math.PI * 2;
 			double red = Math.sin(t + angle) / 2 + .5;
 			double green = Math.sin(t * 2.1 + angle) / 2 + .5;
 			double blue = Math.sin(t * 3.4 + angle) / 2 + .5;
-			style.setFill(red, green, blue);
+			style.fill().set(red, green, blue);
 
 			double r = 80 + Math.sin(t / 5 + angle * (3 + Math.sin(t))) * 40;
 			double x1 = x + Math.cos(angle) * r;

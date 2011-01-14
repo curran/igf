@@ -6,6 +6,8 @@ import java.awt.Image;
 import java.awt.event.KeyListener;
 import java.awt.event.MouseAdapter;
 import java.awt.event.WindowAdapter;
+import java.util.HashMap;
+import java.util.Map;
 
 import javax.media.opengl.GL;
 import javax.media.opengl.GLAutoDrawable;
@@ -13,6 +15,7 @@ import javax.media.opengl.GLCanvas;
 import javax.media.opengl.GLEventListener;
 
 import com.sun.opengl.util.Animator;
+import com.sun.opengl.util.j2d.TextRenderer;
 
 /**
  * An OpenGL implementation of IGF immediate mode graphics. showInFrame() must
@@ -54,6 +57,15 @@ public class OpenGLImmediateModeGraphics extends AbstractImmediateModeGraphics {
 	 * testing if that method was called twice.
 	 */
 	private boolean showFrameWasCalled = false;
+
+	/**
+	 * The mapping from font ids to their TextRenderer instances.
+	 */
+	private Map<Integer, TextRenderer> textRenderers = new HashMap<Integer, TextRenderer>();
+	/**
+	 * The counter used to generate font ids.
+	 */
+	private int fontIDCounter = 0;
 
 	/**
 	 * Initializes this immediate mode graphics implementation and shows it in a
@@ -174,7 +186,7 @@ public class OpenGLImmediateModeGraphics extends AbstractImmediateModeGraphics {
 
 	@Override
 	public void drawLine(double x1, double y1, double x2, double y2) {
-		setStrokeColor();
+		setColor(style().stroke());
 		double weight = style().getStrokeWeight();
 		if (y1 == y2) {
 			gl.glBegin(GL.GL_QUADS);
@@ -225,7 +237,7 @@ public class OpenGLImmediateModeGraphics extends AbstractImmediateModeGraphics {
 		// TODO optimize this - make a circle display list and reuse that for
 		FillAndStroke style = style();
 		if (style.isFillOn()) {
-			setFillColor();
+			setColor(style().fill());
 			gl.glBegin(GL.GL_TRIANGLE_FAN);
 			for (double angle = 0; angle < PI2; angle += angleIncrement) {
 				double x1 = x + Math.sin(angle) * radius;
@@ -236,12 +248,11 @@ public class OpenGLImmediateModeGraphics extends AbstractImmediateModeGraphics {
 		}
 
 		// draw the stroke of the circle
-		// TODO optimize this - make a ring display list and reuse that for
 		if (style.isStrokeOn()) {
 			double halfStrokeWeight = style.getStrokeWeight() / 2;
 			double outerRadius = radius + halfStrokeWeight;
 			double innerRadius = radius - halfStrokeWeight;
-			setStrokeColor();
+			setColor(style().stroke());
 			gl.glBegin(GL.GL_TRIANGLE_STRIP);
 			boolean keepGoing = true;
 			for (double angle = 0; keepGoing; angle += angleIncrement) {
@@ -265,9 +276,12 @@ public class OpenGLImmediateModeGraphics extends AbstractImmediateModeGraphics {
 	@Override
 	public void drawBackground() {
 		checkGL();
-		FillAndStroke s = style();
-		gl.glClearColor((float) s.getFillRed(), (float) s.getFillGreen(),
-				(float) s.getFillBlue(), (float) s.getFillAlpha());
+		MutableColor color = style().fill();
+		float red = (float) (color.getRed());
+		float green = (float) (color.getGreen());
+		float blue = (float) (color.getBlue());
+		float alpha = (float) (color.getAlpha());
+		gl.glClearColor(red, green, blue, alpha);
 		gl.glClear(GL.GL_COLOR_BUFFER_BIT);
 	}
 
@@ -312,14 +326,24 @@ public class OpenGLImmediateModeGraphics extends AbstractImmediateModeGraphics {
 
 	@Override
 	public int loadFont(Font font) {
-		// TODO Auto-generated method stub
-		return 0;
+		TextRenderer renderer = new TextRenderer(font);
+		int fontID = fontIDCounter++;
+		textRenderers.put(fontID, renderer);
+		return fontID;
 	}
 
 	@Override
-	public void text(String textString, int fontID, double x, double y) {
-		// TODO Auto-generated method stub
-
+	public void drawText(String textString, int fontID, double x, double y) {
+		TextRenderer renderer = textRenderers.get(fontID);
+		renderer.beginRendering((int) getWidth(), (int) getHeight());
+		MutableColor fill = style().fill();
+		float red = (float) fill.getRed();
+		float green = (float) fill.getGreen();
+		float blue = (float) fill.getBlue();
+		float alpha = (float) fill.getAlpha();
+		renderer.setColor(red, green, blue, alpha);
+		renderer.draw(textString, (int) x, (int) y);
+		renderer.endRendering();
 	}
 
 	@Override
@@ -338,19 +362,26 @@ public class OpenGLImmediateModeGraphics extends AbstractImmediateModeGraphics {
 	 * Sets the color state of OpenGL to the stroke color stored in
 	 * super.style().
 	 */
-	private void setStrokeColor() {
-		gl.glColor4d(style().getStrokeRed(), style().getStrokeGreen(), style()
-				.getStrokeBlue(), style().getStrokeAlpha());
+	private void setColor(MutableColor color) {
+		double red = color.getRed();
+		double green = color.getGreen();
+		double blue = color.getBlue();
+		double alpha = color.getAlpha();
+		gl.glColor4d(red, green, blue, alpha);
 	}
 
-	/**
-	 * Sets the color state of OpenGL to the fill color stored in super.style().
-	 */
-	private void setFillColor() {
-		FillAndStroke s = style();
-		gl.glColor4d(s.getFillRed(), s.getFillGreen(), s.getFillBlue(),
-				s.getFillAlpha());
-	}
+	// /**
+	// * Sets the color state of OpenGL to the fill color stored in
+	// super.style().
+	// */
+	// private void setFillColor() {
+	// MutableColor color = style().fill();
+	// double red = color.getRed();
+	// double green = color.getGreen();
+	// double blue = color.getBlue();
+	// double alpha = color.getAlpha();
+	// gl.glColor4d(red, green, blue, alpha);
+	// }
 
 	/**
 	 * Throws an exception if the current GL object is null.
